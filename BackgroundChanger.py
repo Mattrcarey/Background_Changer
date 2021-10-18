@@ -13,12 +13,12 @@ photo = response.json()
 
 download_location = photo['links']['download_location']
 payload = {'client_id':ACCESS_KEY}
-status_code = requests.get(download_location, payload).status_code
+response = requests.get(download_location, payload)
+status_code = response.status_code
 
 if status_code == 200:
     image_id = photo['id']
-    download_endpoint = f"https://api.unsplash.com//photos/{image_id}/download?client_id={ACCESS_KEY}"
-    image_download_url = requests.get(download_endpoint).json()['url']
+    image_download_url = response.json()['url']
     response = requests.get(image_download_url)
     format = Image.open(BytesIO(response.content)).format # Gets the file type of the image
     filename = f"photo.{format}"
@@ -26,4 +26,4 @@ if status_code == 200:
     cwd = os.getcwd()
     os.system("gsettings set org.gnome.desktop.background picture-uri file://"+cwd+"/photo." + format)
 else:
-    print('download not allowed', status_code)
+    print('download failed', status_code)
