@@ -5,7 +5,7 @@ import os
 
 
 ACCESS_KEY=''
-searchTerm = 'halloween'
+searchTerm = ''
 
 image_endpoint = f"https://api.unsplash.com/photos/random?query={searchTerm}&page=1&per_page=50&orientation=landscape&client_id={ACCESS_KEY}"
 response = requests.get(image_endpoint)
