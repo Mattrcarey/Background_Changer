@@ -6,8 +6,9 @@ import os
 
 ACCESS_KEY=''
 searchTerm = ''
+path = ''
 
-image_endpoint = f"https://api.unsplash.com/photos/random?query={searchTerm}&page=1&per_page=50&orientation=landscape&client_id={ACCESS_KEY}"
+image_endpoint = f"https://api.unsplash.com/photos/random?query={searchTerm}&page=1&per_page=10&orientation=landscape&client_id={ACCESS_KEY}"
 response = requests.get(image_endpoint)
 photo = response.json()
 
@@ -21,9 +22,8 @@ if status_code == 200:
     image_download_url = response.json()['url']
     response = requests.get(image_download_url)
     format = Image.open(BytesIO(response.content)).format # Gets the file type of the image
-    filename = f"photo.{format}"
+    filename = f"{path}/photo.{format}"
     Image.open(BytesIO(response.content)).save(filename)
-    cwd = os.getcwd()
-    os.system("gsettings set org.gnome.desktop.background picture-uri file://"+cwd+"/photo." + format)
+    os.system("gsettings set org.gnome.desktop.background picture-uri file://"+filename)
 else:
     print('download failed', status_code)

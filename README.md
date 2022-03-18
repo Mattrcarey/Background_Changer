@@ -13,4 +13,6 @@ Python3
   - Empty string for a truely random photo
   - For multiple search terms separate by (,) e.g. 'cats,dogs'
   - Use (-) instead of spaces e.g. 'snowy-mountain'
+- Set Path in BackgroundChanger.py to choose the path where the photo will be saved
+  - Do not add a trailing slash e.g. '/home/matt/BackgroundPhoto'
 - run with command python3 BackgroundChanger.py
